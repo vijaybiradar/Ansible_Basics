@@ -17,7 +17,7 @@ Inside the tasks, there's a single task named "Execute command 'date'" that runs
 This playbook will execute the 'date' command on the localhost when you run it with Ansible. It's a simple and straightforward playbook for this specific task.
 
 
-
+```
 ---
 - name: Get the current date and time
   hosts: all
@@ -47,15 +47,16 @@ This playbook will execute the 'date' command on the localhost when you run it w
           The 'date' command on {{ inventory_hostname }} failed with error: {{ date_result.stderr | default('No error message') }}
       loop: "{{ ansible_play_hosts }}"
       when: date_result.rc is defined and date_result.rc != 0
+```
 Now, let's break down and explain each component in detail:
 
 1. Playbook Header:
 
-yaml
-Copy code
+```
 - name: Get the current date and time
   hosts: all
   gather_facts: yes
+```
 name: This is the name of the playbook, which is "Get the current date and time." It provides a description of the playbook's purpose.
 
 hosts: Specifies the target hosts where the tasks will be executed. In this case, it's set to all, meaning it will run on all hosts defined in your Ansible inventory file.
@@ -64,8 +65,7 @@ gather_facts: When set to yes, Ansible gathers system facts from the target host
 
 2. Tasks:
 
-yaml
-Copy code
+```
   tasks:
     - name: Get the current date
       ansible.builtin.command: date
@@ -75,6 +75,7 @@ Copy code
       register: date_result
       notify:
         - Handle date command result
+```
 name: This is the name of the task, which is "Get the current date." It describes the purpose of the task, which is to run the 'date' command.
 
 ansible.builtin.command: The ansible.builtin.command module is used to execute the 'date' command on the target hosts.
@@ -91,8 +92,7 @@ notify: The notify directive is used to trigger a handler named "Handle date com
 
 3. Handlers:
 
-yaml
-Copy code
+```
   handlers:
     - name: Handle date command result
       debug:
@@ -108,6 +108,7 @@ Copy code
           The 'date' command on {{ inventory_hostname }} failed with error: {{ date_result.stderr | default('No error message') }}
       loop: "{{ ansible_play_hosts }}"
       when: date_result.rc is defined and date_result.rc != 0
+```
 Handlers are defined in a separate section. In this case, there are two handlers: "Handle date command result" and "Notify on failure."
 
 The "Handle date command result" handler prints a message when the 'date' command has a non-zero exit code (rc) indicating failure. It includes information about whether the command executed successfully and its output.
