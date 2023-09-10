@@ -25,9 +25,12 @@ This playbook will execute the 'date' command on the localhost when you run it w
 
 ```
 ---
+---
 - name: Get the current date and time
   hosts: all
   gather_facts: yes
+  become: yes  # Use become to run tasks as root
+  become_user: root  # Specify the user as root
   tasks:
     - name: Get the current date
       ansible.builtin.command: date
@@ -53,6 +56,7 @@ This playbook will execute the 'date' command on the localhost when you run it w
           The 'date' command on {{ inventory_hostname }} failed with error: {{ date_result.stderr | default('No error message') }}
       loop: "{{ ansible_play_hosts }}"
       when: date_result.rc is defined and date_result.rc != 0
+
 ```
 Now, let's break down and explain each component in detail:
 
@@ -62,12 +66,18 @@ Now, let's break down and explain each component in detail:
 - name: Get the current date and time
   hosts: all
   gather_facts: yes
+  become: yes  # Use become to run tasks as root
+  become_user: root  # Specify the user as root
 ```
 name: This is the name of the playbook, which is "Get the current date and time." It provides a description of the playbook's purpose.
 
 hosts: Specifies the target hosts where the tasks will be executed. In this case, it's set to all, meaning it will run on all hosts defined in your Ansible inventory file.
 
 gather_facts: When set to yes, Ansible gathers system facts from the target hosts before executing tasks. Gathering facts provides valuable information about the target systems and can be useful for task execution. It's set to yes to ensure facts are collected.
+
+become: yes: The become directive is added at the playbook level, and it's set to yes to enable privilege escalation. This allows the tasks in this playbook to be executed with elevated privileges.
+
+become_user: root: The become_user directive specifies the user as root. This means that the tasks will be executed as the root user after privilege escalation.
 
 2. Tasks:
 
