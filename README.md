@@ -1,3 +1,9 @@
+
+
+![image](https://github.com/vijaybiradar/Ansible_Basics/assets/38376802/8c05814f-b9ea-4936-a7d6-41920ba840c4)
+
+
+
 playbook for executing the 'date' command on the localhost, here's a more concise version:
 
 ```
