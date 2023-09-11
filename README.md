@@ -132,3 +132,81 @@ The "Handle date command result" handler prints a message when the 'date' comman
 The "Notify on failure" handler prints a message when the 'date' command has a non-zero exit code (rc), indicating failure. It includes information about the error message.
 
 With these additions, the playbook includes handlers to provide detailed output for both success and failure scenarios and uses the notify directive to trigger the appropriate handler. The ignore_errors directive is also used to handle errors gracefully during the execution of the 'date' command. This playbook is comprehensive and provides clear visibility into the task's execution on multiple hosts.
+
+
+
+Ansible Basic (Ad-Hoc) Commands
+
+![image](https://github.com/vijaybiradar/Ansible_Basics/assets/38376802/cbddd05e-20b6-4fdd-a596-56a4b2a07398)
+
+Ansible Ad-Hoc commands offer a quick way to automate tasks on remote servers without the need for full Ansible playbooks. They are great for immediate actions and troubleshooting. The basic structure is:
+
+```
+ansible <host_or_group> -m <module> -a "<arguments>"
+```
+Here are essential Ad-Hoc commands:
+
+Reboot a Host:
+
+To reboot a host named "webserver," execute:
+
+```
+ansible webserver -m reboot
+```
+Check Uptime:
+
+To check the uptime of "dbserver," run:
+
+```
+ansible dbserver -m command -a "uptime"
+```
+File Copy:
+
+To copy a file from "webserver" to "dbserver," use:
+
+```
+ansible webserver -m copy -a "src=/etc/hosts dest=/tmp/hosts"
+```
+User Management:
+
+To create a user named "ansible" with a password on all hosts, employ:
+
+```
+ansible all -m user -a "name=ansible password=password123"
+```
+Install Software:
+
+To install a package like "nginx" on all hosts, issue:
+
+```
+ansible all -m yum -a "name=nginx state=present"
+```
+Check Connectivity:
+
+To ping hosts and confirm reachability, use:
+
+```
+ansible all -m ping
+```
+Execute Shell Command:
+
+To run a shell command on a host, execute:
+
+```
+ansible webserver -m shell -a "your_shell_command_here"
+```
+Manage Services:
+
+To start or stop a service like "apache" on a host, employ:
+
+```
+ansible webserver -m service -a "name=apache state=started"
+```
+Manage Files:
+
+To create or delete a file on a host, apply:
+
+```
+ansible webserver -m file -a "path=/path/to/file state=touch"
+```
+
