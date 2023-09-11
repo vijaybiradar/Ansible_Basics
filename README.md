@@ -1,6 +1,7 @@
 
 
 ![image](https://github.com/vijaybiradar/Ansible_Basics/assets/38376802/8c05814f-b9ea-4936-a7d6-41920ba840c4)
+![image](https://github.com/vijaybiradar/Ansible_Basics/assets/38376802/134c9bec-ebfc-4c28-9771-be2c19c080ae)
 
 
 
